@@ -72,7 +72,7 @@ namespace accessible_codenames.Services
                 wordCards.Add(new Word { Text = word, State = State.Assassin });
             }
 
-            _cardShuffler.Shuffle(wordCards);
+            wordCards = _cardShuffler.Shuffle(wordCards).ToList();
 
             return wordCards;
         }
