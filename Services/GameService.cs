@@ -9,7 +9,7 @@ using Toore.Shuffling;
 
 namespace accessible_codenames.Services
 {
-    public class GameService
+    public class GameService : IGameService
     {
         private IGameRepository _repository;
         private IShuffle _cardShuffler;
@@ -38,7 +38,7 @@ namespace accessible_codenames.Services
             game.Words = CreateWordsForGame(wordList);
 
             _repository.SaveGame(game);
-            
+
             return game;
         }
 
@@ -69,7 +69,7 @@ namespace accessible_codenames.Services
             for (int index = 0; index < NumberOfAssassins; index++)
             {
                 string word = PickNewUniqueWord(allWords, wordCards);
-                wordCards.Add(new Word { Text = word, State = State.Assassin }); 
+                wordCards.Add(new Word { Text = word, State = State.Assassin });
             }
 
             _cardShuffler.Shuffle(wordCards);
