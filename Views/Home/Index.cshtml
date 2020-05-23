@@ -2,7 +2,35 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
+<div class="jumbotron">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div>
+        Presenting an accessible version of codenames.
+    </div>
+</div>
+
+<div class="container">
+    Please choose a version of the game to create
+
+    <div class="row">
+        <div class="box-shadow col-md-6 card">
+            <div class="card-title">Normal</div>
+            <div class="card-body">
+                The regular game of codenames, with a normal set of words
+            </div>
+            <div class="card-footer">
+                @Html.ActionLink("Create normal game", "Create", "Game", new { id = "normal" }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+
+        <div class="box-shadow col-md-6 card">
+            <div class="card-title">Adult</div>
+            <div class="card-body">
+                Based on Codenames: Deep Undercover, features very adult themes. You have been warned
+            </div>
+            <div class="card-footer">
+                @Html.ActionLink("Create an adult game", "Create", "Game", new { id = "adult" }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    </div>
 </div>
