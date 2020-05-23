@@ -5,19 +5,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using accessible_codenames.Models;
 using accessible_codenames.Repositories;
+using Toore.Shuffling;
 
 namespace accessible_codenames.Services
 {
     public class GameService
     {
         private IGameRepository _repository;
+        private IShuffle _cardShuffler;
+        private Random _random;
+
         private static int NumberOfCards = 25;
         private static int NumberOfAssassins = 1;
         private static int NumberOfCardsPerTeam = (NumberOfCards - NumberOfAssassins) / 3;
 
-        public GameService(IGameRepository repository)
+        public GameService(IGameRepository repository, IShuffle shuffle)
         {
             _repository = repository;
+            _cardShuffler = shuffle;
+            _random = new Random();
         }
 
         public Game CreateGame(string wordList)
@@ -29,7 +35,7 @@ namespace accessible_codenames.Services
                 Id = Guid.NewGuid()
             };
 
-            game.Words = CreateWordsForGame(wordLis);
+            game.Words = CreateWordsForGame(wordList);
 
             _repository.SaveGame(game);
             
@@ -47,14 +53,41 @@ namespace accessible_codenames.Services
 
             var allWords = GetAllWordsInWordList(wordListFile);
 
-            var selectedWords = new List<Word>();
+            var wordCards = new List<Word>();
 
+            var sides = new List<State> { State.Blank, State.Blue, State.Red };
 
+            foreach (var side in sides)
+            {
+                for (int index = 0; index < NumberOfCardsPerTeam; index++)
+                {
+                    string word = PickNewUniqueWord(allWords, wordCards);
+                    wordCards.Add(new Word { Text = word, State = side });
+                }
+            }
 
-            return selectedWords;
+            for (int index = 0; index < NumberOfAssassins; index++)
+            {
+                string word = PickNewUniqueWord(allWords, wordCards);
+                wordCards.Add(new Word { Text = word, State = State.Assassin }); 
+            }
+
+            _cardShuffler.Shuffle(wordCards);
+
+            return wordCards;
         }
 
-        private IEnumerable<string> GetAllWordsInWordList(string wordListFile) =>
-            File.ReadAllLines($"wordlists/{wordListFile}");
+        private string PickNewUniqueWord(List<string> allWords, List<Word> selectedWords)
+        {
+            string word = null;
+            do
+            {
+                word = allWords[_random.Next(allWords.Count)];
+            } while (word == null || selectedWords.Any(existing => existing.Text == word));
+            return word;
+        }
+
+        private List<string> GetAllWordsInWordList(string wordListFile) =>
+            File.ReadAllLines($"wordlists/{wordListFile}").ToList();
     }
 }
