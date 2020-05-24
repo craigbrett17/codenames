@@ -32,7 +32,7 @@ namespace accessible_codenames.Services
             {
                 Created = DateTime.UtcNow,
                 CurrentTurn = Team.Blue,
-                Id = Guid.NewGuid()
+                Id = Guid.NewGuid().ToString()
             };
 
             game.Words = CreateWordsForGame(wordList);

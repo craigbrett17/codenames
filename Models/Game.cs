@@ -14,7 +14,7 @@ namespace accessible_codenames.Models
     public class Game
     {
         [DynamoDBHashKey]
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public Team CurrentTurn { get; set; }
         public List<Word> Words { get; set; }
         public DateTime Created { get; set; }

@@ -28,7 +28,7 @@ namespace accessible_codenames.Controllers
         {
             var game = await _gameService.CreateGame(wordList: id);
             _logger.LogInformation($"Game created. With ID: {game.Id}. Returning redirect");
-            return RedirectToAction("Index", "Game", new { id = game.Id.ToString() });
+            return RedirectToAction("Index", "Game", new { id = game.Id });
         }
     }
 }
