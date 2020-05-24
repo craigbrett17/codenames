@@ -7,26 +7,31 @@
     <div>
         Presenting an accessible version of codenames.
     </div>
+    <div>
+        Please choose a version of the game to create
+    </div>
 </div>
 
 <div class="container">
-    Please choose a version of the game to create
-
-    <div class="row">
-        <div class="box-shadow col-md-6 card">
-            <div class="card-title">Normal</div>
+    <div class="row card-deck">
+        <div class="border-primary col-md-6 card text-center">
             <div class="card-body">
-                The regular game of codenames, with a normal set of words
+                <h3 class="card-title">Normal Game</h3>
+                <div>
+                    The regular game of codenames, with a normal set of words
+                </div>
             </div>
             <div class="card-footer">
                 @Html.ActionLink("Create normal game", "Create", "Game", new { id = "normal" }, new { @class = "btn btn-primary" })
             </div>
         </div>
 
-        <div class="box-shadow col-md-6 card">
-            <div class="card-title">Adult</div>
+        <div class="border-primary col-md-6 card text-center">
             <div class="card-body">
-                Based on Codenames: Deep Undercover, features very adult themes. You have been warned
+                <h3 class="card-title">Adult Game</h3>
+                <div>
+                    Based on Codenames: Deep Undercover, features very adult themes. You have been warned
+                </div>
             </div>
             <div class="card-footer">
                 @Html.ActionLink("Create an adult game", "Create", "Game", new { id = "adult" }, new { @class = "btn btn-primary" })
