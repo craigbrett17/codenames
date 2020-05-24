@@ -5,7 +5,10 @@
 // do fancy stuff later
 // current working theory: the game itself will be an SPA embedded within a regular MVC site
 
-var connection = new signalR.HubConnectionBuilder().withUrl("/gamehub").build();
+var connection = new signalR.HubConnectionBuilder()
+    .withUrl("/gamehub")
+    .withAutomaticReconnect()
+    .build();
 
 //Disable change turn button until connection is established
 document.getElementById("change-turn-btn").disabled = true;

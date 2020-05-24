@@ -42,10 +42,27 @@ namespace accessible_codenames.Services
             return game;
         }
 
-        public async Task ChangeTurn(Game game)
+        public async Task<Team> ChangeTurn(string gameId)
         {
+            var game = await _repository.GetGameById(gameId);
             game.CurrentTurn = (game.CurrentTurn == Team.Red) ? Team.Blue : Team.Red;
             await _repository.SaveGame(game);
+
+            return game.CurrentTurn;
+        }
+
+        public async Task<WordPickOutcome> RevealWord(string gameId, string word)
+        {
+            var game = await _repository.GetGameById(gameId);
+            var wordCard = game.Words.Single(w => w.Text == word);
+            wordCard.Revealed = true;
+            await _repository.SaveGame(game);
+
+            return new WordPickOutcome
+            {
+                Word = wordCard,
+                ShouldChangeTurn = wordCard.State != State.Assassin && wordCard.State.ToString() != game.CurrentTurn.ToString()
+            };
         }
 
         private List<Word> CreateWordsForGame(string wordList)

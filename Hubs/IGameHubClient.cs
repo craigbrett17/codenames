@@ -10,5 +10,6 @@ namespace accessible_codenames.Hubs
         Task WordPicked(Word word);
         Task GameStateReceived(GameViewModel viewModel);
         Task PromotedToSpymaster(GameSpymasterViewModel viewModel);
+        Task NewSpyMasterAdded();
     }
 }
