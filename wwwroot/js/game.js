@@ -14,16 +14,17 @@ var connection = new signalR.HubConnectionBuilder()
 document.getElementById("change-turn-btn").disabled = true;
 
 connection.start().then(function () {
-    connection.invoke("GetGameState", getGameIdFromUrl()).catch(function (err) {
-        return console.error(err.toString());
-    });
+    console.log("Connection started");
 }).catch(function (err) {
+    document.getElementById("game-board-ctr").innerHTML = "<div class=\"alert\">Error connecting to the server. An unknown error occurred. Refreshing may resolve this issue</div>";
     return console.error(err.toString());
 });
 
 connection.on("GameStateReceived", function (game) {
+    console.log("Game state received: ", game);
     document.getElementById("current-turn-lbl").innerText = game.currentTurn + " team's turn";
-    for (var word in game.words) {
+    document.getElementById("game-board-ctr").innerHTML = "";
+    for (var word of game.words) {
         var elem = document.createElement("div");
         elem.classList.add("word");
         elem.classList.add("col-md-3");
@@ -31,6 +32,7 @@ connection.on("GameStateReceived", function (game) {
         elem.innerText = word;
         document.getElementById("game-board-ctr").appendChild(elem);
     }
+    document.getElementById("change-turn-btn").disabled = false;
     addToLog("Game loaded");
 });
 
@@ -42,23 +44,6 @@ document.getElementById("change-turn-btn").addEventListener("click", function (e
 connection.on("ChangedTurn", function (team) {
     document.getElementById("current-turn-lbl").innerText = team + " team's turn";
     addToLog("Turn changed: " + team + " team's turn");
-});
-
-connection.on("ReceiveMessage", function (user, message) {
-    var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    var encodedMsg = user + " says " + msg;
-    var li = document.createElement("li");
-    li.textContent = encodedMsg;
-    document.getElementById("messagesList").appendChild(li);
-});
-
-document.getElementById("sendButton").addEventListener("click", function (event) {
-    var user = document.getElementById("userInput").value;
-    var message = document.getElementById("messageInput").value;
-    connection.invoke("SendMessage", user, message).catch(function (err) {
-        return console.error(err.toString());
-    });
-    event.preventDefault();
 });
 
 function getGameIdFromUrl() {
