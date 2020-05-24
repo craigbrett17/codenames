@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using accessible_codenames.Hubs;
 using accessible_codenames.Repositories;
 using accessible_codenames.Services;
+using Amazon.DynamoDBv2;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,6 +29,9 @@ namespace accessible_codenames
         {
             services.AddControllersWithViews();
             services.AddSignalR();
+
+            services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
+            services.AddAWSService<IAmazonDynamoDB>();
 
             services.AddSingleton<IGameService, GameService>();
             services.AddSingleton<IGameRepository, DynamoGameRepository>();

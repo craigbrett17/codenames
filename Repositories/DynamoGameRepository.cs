@@ -3,19 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using accessible_codenames.Models;
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
 
 namespace accessible_codenames.Repositories
 {
     public class DynamoGameRepository : IGameRepository
     {
-        public Task<Game> GetGameById(string id)
+        private readonly IAmazonDynamoDB _dynamo;
+
+        public DynamoGameRepository(IAmazonDynamoDB dynamo)
         {
-            return Task.FromResult<Game>(null);
+            _dynamo = dynamo;
         }
 
-        public Task SaveGame(Game game)
+        public async Task<Game> GetGameById(string id)
         {
-            return Task.CompletedTask;
+            var context = new DynamoDBContext(_dynamo);
+            var game = await context.LoadAsync<Game>(id);
+            return game;
+        }
+
+        public async Task SaveGame(Game game)
+        {
+            var context = new DynamoDBContext(_dynamo);
+            await context.SaveAsync(game);
         }
     }
 }
