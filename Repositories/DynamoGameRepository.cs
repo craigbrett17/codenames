@@ -8,14 +8,14 @@ namespace accessible_codenames.Repositories
 {
     public class DynamoGameRepository : IGameRepository
     {
-        public Game GetGameById(string id)
+        public Task<Game> GetGameById(string id)
         {
             return null;
         }
 
-        public void SaveGame(Game game)
+        public Task SaveGame(Game game)
         {
-
+            return Task.CompletedTask;
         }
     }
 }

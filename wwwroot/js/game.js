@@ -3,6 +3,7 @@
 // hacky hacky hacky, we likey the hacky
 // lol j/k, this is Microsoft boilerplate code turned into a game
 // do fancy stuff later
+// current working theory: the game itself will be an SPA embedded within a regular MVC site
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/gamehub").build();
 
@@ -17,8 +18,9 @@ connection.start().then(function () {
     return console.error(err.toString());
 });
 
-connection.on("GameStateReceived", function (words) {
-    for (var word in words) {
+connection.on("GameStateReceived", function (game) {
+    document.getElementById("current-turn-lbl").innerText = game.currentTurn + " team's turn";
+    for (var word in game.words) {
         var elem = document.createElement("div");
         elem.classList.add("word");
         elem.classList.add("col-md-3");
@@ -36,6 +38,7 @@ document.getElementById("change-turn-btn").addEventListener("click", function (e
 
 connection.on("ChangedTurn", function (team) {
     document.getElementById("current-turn-lbl").innerText = team + " team's turn";
+    addToLog("Turn changed: " + team + " team's turn");
 });
 
 connection.on("ReceiveMessage", function (user, message) {

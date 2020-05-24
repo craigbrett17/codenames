@@ -26,7 +26,7 @@ namespace accessible_codenames.Services
             _random = new Random();
         }
 
-        public Game CreateGame(string wordList)
+        public async Task<Game> CreateGame(string wordList)
         {
             var game = new Game
             {
@@ -37,9 +37,15 @@ namespace accessible_codenames.Services
 
             game.Words = CreateWordsForGame(wordList);
 
-            _repository.SaveGame(game);
+            await _repository.SaveGame(game);
 
             return game;
+        }
+
+        public async Task SwitchTurn(Game game)
+        {
+            game.CurrentTurn = (game.CurrentTurn == Team.Red) ? Team.Blue : Team.Red;
+            await _repository.SaveGame(game);
         }
 
         private List<Word> CreateWordsForGame(string wordList)
