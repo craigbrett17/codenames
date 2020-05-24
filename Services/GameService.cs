@@ -42,7 +42,7 @@ namespace accessible_codenames.Services
             return game;
         }
 
-        public async Task SwitchTurn(Game game)
+        public async Task ChangeTurn(Game game)
         {
             game.CurrentTurn = (game.CurrentTurn == Team.Red) ? Team.Blue : Team.Red;
             await _repository.SaveGame(game);

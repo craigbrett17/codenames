@@ -9,7 +9,7 @@
     using Microsoft.AspNetCore.SignalR;
     using Microsoft.Extensions.Logging;
 
-    public class GameHub : Hub
+    public class GameHub : Hub<IGameHubClient>
     {
         private readonly IGameRepository _repository;
         private readonly IGameService _service;
