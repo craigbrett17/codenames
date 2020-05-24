@@ -7,7 +7,17 @@
       "destination": "wwwroot/js/signalr",
       "files": [
         "dist/browser/signalr.js",
+        "dist/browser/signalr.js.map",
         "dist/browser/signalr.min.js"
+      ]
+    },
+    {
+      "library": "underscore@latest",
+      "destination": "wwwroot/lib/underscore/",
+      "files": [
+        "underscore.js",
+        "underscore.js.map",
+        "underscore-min.js"
       ]
     }
   ]

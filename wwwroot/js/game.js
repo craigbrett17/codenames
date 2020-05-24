@@ -10,6 +10,12 @@ var connection = new signalR.HubConnectionBuilder()
     .withAutomaticReconnect()
     .build();
 
+var wordCardTemplate;
+
+_.templateFromUrl("/templates/wordcard.html").then(function (compiledTemplate) {
+    wordCardTemplate = compiledTemplate;
+});
+
 //Disable change turn button until connection is established
 document.getElementById("change-turn-btn").disabled = true;
 
@@ -26,10 +32,8 @@ connection.on("GameStateReceived", function (game) {
     document.getElementById("game-board-ctr").innerHTML = "";
     for (var word of game.words) {
         var elem = document.createElement("div");
-        elem.classList.add("word");
-        elem.classList.add("col-md-3");
-        elem.classList.add("col-sm-4");
-        elem.innerText = word;
+        var output = wordCardTemplate({ word: word });
+        elem.innerHTML = output;
         document.getElementById("game-board-ctr").appendChild(elem);
     }
     document.getElementById("change-turn-btn").disabled = false;
