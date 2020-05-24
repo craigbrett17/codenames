@@ -68,13 +68,7 @@
         {
             // find the game ID using the HTTP context that they're calling from
             var context = Context.GetHttpContext();
-            var uri = context.Request.Path.Value;
-            if (uri.EndsWith('/'))
-            {
-                uri = uri.Substring(0, uri.Length - 1);
-            }
-            
-            var gameId = uri.Split("/").LastOrDefault();
+            var gameId = context.Request.Query["gameId"].FirstOrDefault();
             if (gameId == null)
             {
                 throw new HubException("Unable to determine game ID from requested URL");

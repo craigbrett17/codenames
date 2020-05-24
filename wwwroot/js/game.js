@@ -6,7 +6,7 @@
 // current working theory: the game itself will be an SPA embedded within a regular MVC site
 
 var connection = new signalR.HubConnectionBuilder()
-    .withUrl("/gamehub")
+    .withUrl("/gamehub?gameId=" + getGameIdFromUrl())
     .withAutomaticReconnect()
     .build();
 

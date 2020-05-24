@@ -10,7 +10,7 @@ namespace accessible_codenames.Repositories
     {
         public Task<Game> GetGameById(string id)
         {
-            return null;
+            return Task.FromResult<Game>(null);
         }
 
         public Task SaveGame(Game game)
