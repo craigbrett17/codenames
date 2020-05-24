@@ -19,15 +19,29 @@ namespace accessible_codenames.Repositories
 
         public async Task<Game> GetGameById(string id)
         {
-            var context = new DynamoDBContext(_dynamo);
-            var game = await context.LoadAsync<Game>(id);
-            return game;
+            using (var context = new DynamoDBContext(_dynamo))
+            {
+                var game = await context.LoadAsync<Game>(id);
+                return game;
+            }
         }
 
         public async Task SaveGame(Game game)
         {
-            var context = new DynamoDBContext(_dynamo);
-            await context.SaveAsync(game);
+            game.Expiration = GetExpiration();
+            
+            using (var context = new DynamoDBContext(_dynamo))
+            {
+                await context.SaveAsync(game);
+            }
+        }
+
+        private static long GetExpiration()
+        {
+            return Convert.ToInt64(
+                DateTime.UtcNow.AddDays(7).Subtract(
+                    new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                    ).TotalMilliseconds);
         }
     }
 }
