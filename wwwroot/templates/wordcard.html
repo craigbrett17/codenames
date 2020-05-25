@@ -1,5 +1,6 @@
-﻿<div class="word card border-primary btn" data-id="<%= word %>" onclick="onWordClicked(this)">
+﻿<div class="word card border-primary">
     <div class="card-body">
-        <%= word %>
+        <input type="button" class="btn" value="<%= word %>"
+                data-id="<%= word %>" onclick="onWordClicked(this)" aria-pressed="false" />
     </div>
 </div>

@@ -56,9 +56,11 @@ connection.on("WordPicked", function (word) {
     } else {
         addToLog(`The word ${word.text} was picked. It was the assassin word!`);
     }
-    var wordCard = document.querySelector(".word[data-id='" + word.text + "']");
+    var wordCard = document.querySelector(".word .btn[data-id='" + word.text + "']");
     wordCard.classList.add(wordState);
     wordCard.classList.add("revealed");
+    wordCard.setAttribute("aria-pressed", "true");
+    wordCard.setAttribute("aria-label", word.text + ": " + wordState);
 });
 
 connection.start().then(function () {
