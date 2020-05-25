@@ -66,6 +66,7 @@ namespace accessible_codenames
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute("JoinGame", "game/{gameid}", new { controller = "Game", action = "Index" });
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

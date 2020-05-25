@@ -19,7 +19,7 @@ namespace accessible_codenames.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index(string id)
+        public IActionResult Index(string gameId)
         {
             return View();
         }
@@ -28,7 +28,7 @@ namespace accessible_codenames.Controllers
         {
             var game = await _gameService.CreateGame(wordList: id);
             _logger.LogInformation($"Game created. With ID: {game.Id}. Returning redirect");
-            return RedirectToAction("Index", "Game", new { id = game.Id });
+            return RedirectToAction("Index", "Game", new { gameId = game.Id });
         }
     }
 }
