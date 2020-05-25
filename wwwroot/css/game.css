@@ -1,0 +1,21 @@
+﻿#game-board-ctr {
+    margin: 2em 0 2em 0;
+}
+
+.word.red {
+    background-color: #ff8888;
+}
+
+.word.blue {
+    background-color: #8888ff;
+}
+
+.word.assassin {
+    background-color: black;
+    color: white;
+}
+
+.word.revealed {
+    font-weight: bold;
+    text-decoration: line-through;
+}
