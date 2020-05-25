@@ -85,6 +85,23 @@ connection.on("NewSpymasterAdded", function () {
     addToLog("A new spymaster has been appointed");
 });
 
+function onFilterClicked(e) {
+    var id = e.dataset.id;
+    if (id == "all") {
+        for (var wordCard of document.querySelectorAll(".card")) {
+            wordCard.classList.remove("d-none");
+        }
+    } else {
+        for (var wordCard of document.querySelectorAll(".card")) {
+            if (wordCard.querySelector(".btn").classList.contains(id)) {
+                wordCard.classList.remove("d-none");
+            } else {
+                wordCard.classList.add("d-none");
+            }
+        }
+    }
+}
+
 connection.start().then(function () {
     console.log("Connection started");
 }).catch(function (err) {

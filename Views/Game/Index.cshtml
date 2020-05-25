@@ -2,20 +2,22 @@
     ViewData["Title"] = "Game";
 }
 
-<div class="row" id="turn-ctr">
-    <span class="col-md-6 col-sm-8" id="current-turn-lbl"></span>
-    <button class="col-md-6 col-sm-4" id="change-turn-btn">End turn</button>
+<div class="row mb-3" id="turn-ctr">
+    <span class="col-6" id="current-turn-lbl"></span>
+    <button class="col-6 btn btn-primary" id="change-turn-btn">End turn</button>
 </div>
 
 <div class="row" id="spymaster-ctr">
-    <button class="btn btn-primary col-4 offset-8" id="spymaster-btn" onclick="onSpymasterButtonClicked()">Make me a spymaster</button>
+    <button class="btn btn-secondary col-6 offset-6" id="spymaster-btn" onclick="onSpymasterButtonClicked()">Make me a spymaster</button>
 </div>
 
-<div class="spymaster-only row" id="filter-ctr">
+<div class="spymaster-only" id="filter-ctr">
     <span>Filters: </span>
-    <button class="btn" onclick="onFilterClicked(this)" data-id="all">Show all</button>
-    <button class="btn" onclick="onFilterClicked(this)" data-id="red">Show red</button>
-    <button class="btn" onclick="onFilterClicked(this)" data-id="blue">Show blue</button>
+    <div class="btn-toolbar float-right" role="group">
+        <button class="btn mx-2" onclick="onFilterClicked(this)" data-id="all">Show all</button>
+        <button class="btn mx-2" onclick="onFilterClicked(this)" data-id="red">Show red</button>
+        <button class="btn mx-2" onclick="onFilterClicked(this)" data-id="blue">Show blue</button>
+    </div>
 </div>
 
 <div class="container-fluid my-3 overflow-auto" id="game-board-ctr">
