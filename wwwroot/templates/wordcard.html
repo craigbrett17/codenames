@@ -1,4 +1,6 @@
 ﻿<div class="word card col-lg-3 col-4 my-3 shadow">
-    <input type="button" class="btn btn-block py-5" value="<%= word %>"
-            data-id="<%= word %>" onclick="onWordClicked(this)" aria-pressed="false" />
+    <button class="btn btn-block py-5" data-id="<%= word %>"
+            onclick="onWordClicked(this)" aria-pressed="false">
+        <%= word %>
+    </button>
 </div>

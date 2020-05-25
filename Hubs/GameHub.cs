@@ -55,7 +55,7 @@
             }
         }
 
-        public async Task SpymasterReveal()
+        public async Task PromoteToSpymaster()
         {
             var gameId = GetGameId();
             var game = await _repository.GetGameById(gameId);

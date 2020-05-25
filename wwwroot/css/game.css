@@ -19,3 +19,15 @@
     font-weight: bold;
     text-decoration: line-through;
 }
+
+.spymaster-only {
+    visibility: hidden;
+}
+
+.spymaster .spymaster-only {
+    visibility: visible;
+}
+
+.spymaster #spymaster-ctr {
+    visibility: hidden;
+}

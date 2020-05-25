@@ -66,6 +66,25 @@ connection.on("WordPicked", function (word) {
     wordCard.setAttribute("aria-label", word.text + ": " + wordState);
 });
 
+function onSpymasterButtonClicked() {
+    connection.invoke("PromoteToSpymaster");
+}
+
+connection.on("PromotedToSpymaster", function (game) {
+    addToLog("You have been promoted to a spymaster");
+    for (var word of game.words) {
+        var wordState = word.state.toLowerCase();
+        var wordCard = document.querySelector(".word .btn[data-id='" + word.text + "']");
+        wordCard.classList.add(wordState);
+        wordCard.setAttribute("aria-label", word.text + ": " + wordState);
+    }
+    document.querySelector("body").classList.add("spymaster");
+});
+
+connection.on("NewSpymasterAdded", function () {
+    addToLog("A new spymaster has been appointed");
+});
+
 connection.start().then(function () {
     console.log("Connection started");
 }).catch(function (err) {
