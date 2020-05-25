@@ -72,16 +72,17 @@ function onWordClicked(e) {
 
 connection.on("WordPicked", function (word) {
     var wordState = word.state.toLowerCase();
-    if (wordState != "assassin") {
-        addToLog(`The word ${word.text} was picked. It was ${word.state}`);
-    } else {
-        addToLog(`The word ${word.text} was picked. It was the assassin word!`);
-    }
     var wordCard = document.querySelector(".word .btn[data-id='" + word.text + "']");
     wordCard.classList.add(wordState);
     wordCard.classList.add("revealed");
     wordCard.setAttribute("aria-pressed", "true");
     wordCard.setAttribute("aria-label", word.text + ": " + wordState);
+
+    if (wordState != "assassin") {
+        addToLog(`The word ${word.text} was picked. It was ${word.state}`);
+    } else {
+        addToLog(`The word ${word.text} was picked. It was the assassin word!`);
+    }
 });
 
 function onSpymasterButtonClicked() {
