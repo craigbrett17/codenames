@@ -24,12 +24,15 @@ connection.on("GameStateReceived", function (game) {
     console.log("Game state received: ", game);
     document.querySelector("#current-turn-lbl").innerText = game.currentTurn + " team's turn";
     document.querySelector("#game-board-ctr").innerHTML = "";
+    var container = document.createElement("div");
+    container.classList.add("row");
     for (var word of game.words) {
-        var elem = document.createElement("div");
+        var elem = document.createElement("template");
         var output = wordCardTemplate({ word: word });
         elem.innerHTML = output;
-        document.querySelector("#game-board-ctr").appendChild(elem);
+        container.appendChild(elem.content.firstChild);
     }
+    document.querySelector("#game-board-ctr").appendChild(container);
     document.querySelector("#change-turn-btn").disabled = false;
     addToLog("Game loaded");
 });
