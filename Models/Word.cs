@@ -7,6 +7,7 @@ namespace accessible_codenames.Models
 {
     public enum State
     {
+        Unknown,
         Red,
         Blue,
         Blank,

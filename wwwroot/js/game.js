@@ -4,6 +4,7 @@
 // lol j/k, this is Microsoft boilerplate code turned into a game
 // do fancy stuff later
 // current working theory: the game itself will be an SPA embedded within a regular MVC site
+// although: now we have the templating and such, it's not too shabby for framework-less
 
 var connection = new signalR.HubConnectionBuilder()
     .withUrl("/gamehub?gameId=" + getGameIdFromUrl())
@@ -17,8 +18,10 @@ _.templateFromUrl("/templates/wordcard.html").then(function (compiledTemplate) {
     wordCardTemplate = compiledTemplate;
 });
 
-//Disable change turn button until connection is established
-document.querySelector("#change-turn-btn").disabled = true;
+//Disable buttons until connection is established
+for (var button of document.querySelectorAll(".btn")) {
+    button.disabled = true;
+}
 
 connection.on("GameStateReceived", function (game) {
     console.log("Game state received: ", game);
@@ -27,13 +30,28 @@ connection.on("GameStateReceived", function (game) {
     var container = document.createElement("div");
     container.classList.add("row");
     for (var word of game.words) {
-        var elem = document.createElement("template");
-        var output = wordCardTemplate({ word: word });
-        elem.innerHTML = output;
-        container.appendChild(elem.content.firstChild);
+        var templateElement = document.createElement("template");
+        var output = wordCardTemplate(word);
+        templateElement.innerHTML = output;
+        var card = templateElement.content.firstChild;
+
+        if (word.revealed) {
+            var wordState = word.state.toLowerCase();
+            var wordCard = card.querySelector(".btn");
+            wordCard.classList.add(wordState);
+            wordCard.classList.add("revealed");
+            wordCard.setAttribute("aria-pressed", "true");
+            wordCard.setAttribute("aria-label", word.text + ": " + wordState);
+        }
+
+        container.appendChild(card);
     }
     document.querySelector("#game-board-ctr").appendChild(container);
-    document.querySelector("#change-turn-btn").disabled = false;
+
+    for (var button of document.querySelectorAll(".btn")) {
+        button.disabled = false;
+    }
+
     addToLog("Game loaded");
 });
 
@@ -68,6 +86,7 @@ connection.on("WordPicked", function (word) {
 
 function onSpymasterButtonClicked() {
     connection.invoke("PromoteToSpymaster");
+    document.querySelector("#spymaster-btn").disabled = true;
 }
 
 connection.on("PromotedToSpymaster", function (game) {
