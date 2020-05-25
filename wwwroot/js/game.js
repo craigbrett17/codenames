@@ -66,7 +66,6 @@ connection.on("ChangedTurn", function (team) {
 });
 
 function onWordClicked(e) {
-    e.setAttribute("aria-pressed", "true");
     var word = e.dataset.id;
     connection.invoke("PickWord", word);
 }
@@ -79,8 +78,13 @@ connection.on("WordPicked", function (word) {
     wordCard.setAttribute("aria-label", word.text + ": " + wordState);
 
     // small workaround to fix iOS voiceover aria-pressed shouting over the game log, which is inconvenient
-    // we now aria-press on click and only re-enable it being pressed if it isn't already
-    if (wordCard.getAttribute("aria-pressed") != "true") {
+    // if it is the focused element, wait some time before aria-pressing, to give the log messages a chance to be heard
+    // by no means fool proof, but workable for now
+    if (document.activeElement === wordCard) {
+        setTimeout(function () {
+            wordCard.setAttribute("aria-pressed", "true");
+        }, 5000);
+    } else {
         wordCard.setAttribute("aria-pressed", "true");
     }
 
