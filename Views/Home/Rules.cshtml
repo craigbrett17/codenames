@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Rules";
+}
+
+<h1>Rules</h1>
+<p>
+    See also: <a href="https://en.wikipedia.org/wiki/Codenames_(board_game)">the Wikipedia entry for Codenames</a>
+</p>
+<p>
+    Codenames is a team game involving deduction, memory and some outright guesswork. We recommend at least 6 players, but it may be possible to adapt the game to fewer players as you choose. This decision is yours.
+</p>
+<p>
+    There are two teams, a red team and a blue team, and 25 cards on the board, with different code names on them. These codenames will refer to a red agent, a blue agent, an innocent bistander (with no colour), or the assassin (black with white writing).
+</p>
+<h2>Spymasters</h2>
+<p>
+    There should be one player on each team that is either picked or nominates themself to be the spymaster. These spymasters, after choosing this position, will have the entire board revealed to them, so they will see what colour each card is. However, they are not allowed to divulge this information directly to their teammates.
+</p>
+<h2>Taking a turn</h2>
+<p>
+    Each turn, the spymaster of the team whoes turn it is can give a hint to their teammates in order to help them locate the cards of their own colour. Nothing more. This hint consists of:
+</p>
+<ul>
+    <li>A word, denoting a clue about the objects these codenames refer to</li>
+    <li>A number of cards that this clue applies to that the team should guess. This should be no more than three (though good luck doing this with more than three)</li>
+</ul>
+<p>
+    For example, say that the board contains the cards "deer" and "dance", the spymaster may try and use the word "rain" as their clue, with the number 2, meaning the team should try and guess 2 cards related to rain. Complicating things, is that there may be other close hits, such as "purple". The spymaster should be double careful of the word on the assassin card.
+</p>
+<p>
+    The team must then use this clue to try and guess cards of their own colour that are safe to pick. Any player on that team may pick the cards.
+</p>
+<p>
+    If the card is correctly found as a card of their own team, the team continues to pick the rest of their cards for their clue. They may choose to pick up to one more than their clue provides for if they are sufficiently sure, though this is risky.
+</p>
+<p>
+    If the card is an innocent bistander, their turn is immediately ended.
+</p>
+<p>
+    If the card is a card of the opposing team, their turn is immediately ended, and the other team has one fewer card to find!
+</p>
+<p>
+    If the card is the assassin card, the game is over, and the team that picks the assassin card loses instantly.
+</p>
+<p>
+    Once a team is done picking their cards and if they have not lost their turn, the turn should be ended to allow the other team to take their turn.
+</p>
+<h2>Winning the game</h2>
+<p>
+    The game is ended either when 1 team has successfully found all of their cards, or when a team picks the assassin card, thereby losing the game
+</p>
+<h2>Other considerations</h2>
+<p>
+    Depending on if you feel like putting a forfeit or drinking variation on the game, the spymaster must face the same fate as their teammates, since the team's failure is as much theirs as it is their teammates'
+</p>

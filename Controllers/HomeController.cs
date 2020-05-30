@@ -23,6 +23,11 @@ namespace accessible_codenames.Controllers
             return View();
         }
 
+        public IActionResult Rules()
+        {
+            return View();
+        }
+
         public IActionResult About()
         {
             return View();
