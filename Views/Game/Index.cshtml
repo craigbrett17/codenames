@@ -8,7 +8,11 @@
 </div>
 
 <div class="row" id="spymaster-ctr">
-    <button class="btn btn-secondary col-6 offset-6" id="spymaster-btn" onclick="onSpymasterButtonClicked()">Make me a spymaster</button>
+    <div class="col-6" id="scores-ctr">
+        <span class="rounded-circle red px-2 mx-2" id="red-score-lbl" aria-label="Red: 0" role="img">0</span>
+        <span class="rounded-circle blue px-2 mx-2" id="blue-score-lbl" aria-label="Blue: 0" role="img">0</span>
+    </div>
+    <button class="btn btn-secondary col-6" id="spymaster-btn" onclick="onSpymasterButtonClicked()">Make me a spymaster</button>
 </div>
 
 <div class="spymaster-only" id="filter-ctr">

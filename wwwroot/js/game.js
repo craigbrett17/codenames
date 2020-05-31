@@ -52,6 +52,7 @@ connection.on("GameStateReceived", function (game) {
         button.disabled = false;
     }
 
+    displayCurrentScores();
     addToLog("Game loaded");
 });
 
@@ -88,6 +89,7 @@ connection.on("WordPicked", function (word) {
         wordCard.setAttribute("aria-pressed", "true");
     }
 
+    displayCurrentScores();
     if (wordState != "assassin") {
         addToLog(`The word ${word.text} was picked. It was ${word.state}`);
     } else {
@@ -138,6 +140,28 @@ connection.start().then(function () {
     document.getElementById("game-board-ctr").innerHTML = "<div class=\"alert\">Error connecting to the server. An unknown error occurred. Refreshing may resolve this issue</div>";
     return console.error(err.toString());
 });
+
+function displayCurrentScores() {
+    var cards = document.querySelectorAll(".word");
+    var counts = _.countBy(cards, function (card) {
+        if (card.querySelector('.revealed') == null) {
+            return 'none';
+        }
+        if (card.querySelector('.red')) {
+            return 'red';
+        }
+        if (card.querySelector('.blue')) {
+            return 'blue';
+        }
+        return 'none';
+    });
+    var redScore = counts.hasOwnProperty('red') ? counts['red'] : 0;
+    var blueScore = counts.hasOwnProperty('blue') ? counts['blue'] : 0;
+    document.querySelector('#red-score-lbl').textContent = redScore;
+    document.querySelector('#red-score-lbl').setAttribute('aria-label', 'Red: ' + redScore);
+    document.querySelector('#blue-score-lbl').textContent = blueScore;
+    document.querySelector('#blue-score-lbl').setAttribute('aria-label', 'Blue: ' + blueScore);
+}
 
 function getGameIdFromUrl() {
     var segments = location.pathname.split('/');

@@ -2,11 +2,11 @@
     height: 60vh;
 }
 
-.word .red {
+.word .red, #scores-ctr .red {
     background-color: #ff8888;
 }
 
-.word .blue {
+.word .blue, #scores-ctr .blue {
     background-color: #8888ff;
 }
 
@@ -28,6 +28,6 @@
     visibility: visible;
 }
 
-.spymaster #spymaster-ctr {
+.spymaster #spymaster-btn {
     visibility: hidden;
 }
