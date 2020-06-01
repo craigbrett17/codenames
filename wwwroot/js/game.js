@@ -84,7 +84,7 @@ connection.on("WordPicked", function (word) {
     if (document.activeElement === wordCard) {
         setTimeout(function () {
             wordCard.setAttribute("aria-pressed", "true");
-        }, 5000);
+        }, 10000);
     } else {
         wordCard.setAttribute("aria-pressed", "true");
     }
