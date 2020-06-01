@@ -24,9 +24,9 @@ namespace accessible_codenames.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Create(string id)
+        public async Task<IActionResult> Create(string id, [FromQuery] int numOfCards)
         {
-            var game = await _gameService.CreateGame(wordList: id);
+            var game = await _gameService.CreateGame(wordList: id, numberOfCards: numOfCards);
             _logger.LogInformation($"Game created. With ID: {game.Id}. Returning redirect");
             return RedirectToAction("Index", "Game", new { gameId = game.Id });
         }

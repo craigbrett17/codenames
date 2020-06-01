@@ -5,7 +5,7 @@ namespace accessible_codenames.Services
 {
     public interface IGameService
     {
-        Task<Game> CreateGame(string wordList);
+        Task<Game> CreateGame(string wordList, int numberOfCards);
         Task<Team> ChangeTurn(string gameId);
         Task<WordPickOutcome> RevealWord(string gameId, string word);
     }

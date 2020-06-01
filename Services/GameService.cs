@@ -15,9 +15,7 @@ namespace accessible_codenames.Services
         private IShuffle _cardShuffler;
         private Random _random;
 
-        private static int NumberOfCards = 25;
         private static int NumberOfAssassins = 1;
-        private static int NumberOfCardsPerTeam = (NumberOfCards - NumberOfAssassins) / 3;
 
         public GameService(IGameRepository repository, IShuffle shuffle)
         {
@@ -26,7 +24,7 @@ namespace accessible_codenames.Services
             _random = new Random();
         }
 
-        public async Task<Game> CreateGame(string wordList)
+        public async Task<Game> CreateGame(string wordList, int numberOfCards)
         {
             var game = new Game
             {
@@ -35,7 +33,7 @@ namespace accessible_codenames.Services
                 Id = Guid.NewGuid().ToString()
             };
 
-            game.Words = CreateWordsForGame(wordList);
+            game.Words = CreateWordsForGame(wordList, numberOfCards);
 
             await _repository.SaveGame(game);
 
@@ -65,7 +63,7 @@ namespace accessible_codenames.Services
             };
         }
 
-        private List<Word> CreateWordsForGame(string wordList)
+        private List<Word> CreateWordsForGame(string wordList, int numberOfCards)
         {
             string wordListFile = (wordList.ToLower()) switch
             {
@@ -79,10 +77,11 @@ namespace accessible_codenames.Services
             var wordCards = new List<Word>();
 
             var sides = new List<State> { State.Blank, State.Blue, State.Red };
+            var numberOfCardsPerTeam = (numberOfCards - NumberOfAssassins) / sides.Count;
 
             foreach (var side in sides)
             {
-                for (int index = 0; index < NumberOfCardsPerTeam; index++)
+                for (int index = 0; index < numberOfCardsPerTeam; index++)
                 {
                     string word = PickNewUniqueWord(allWords, wordCards);
                     wordCards.Add(new Word { Text = word, State = side });
