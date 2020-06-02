@@ -7,11 +7,11 @@
 }
 
 .word .red, #scores-ctr .red {
-    background-color: #ff8888;
+    background-color: #ff6347;
 }
 
 .word .blue, #scores-ctr .blue {
-    background-color: #8888ff;
+    background-color: #87CEEB;
 }
 
 .word .assassin {
