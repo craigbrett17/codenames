@@ -32,12 +32,13 @@ jobs:
       AWS_REGION: eu-west-2
       APP_NAME: codenames
       ENVIRONMENT_NAME: codenames-live
-      ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
       AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
       
     steps:
+      - uses: actions/checkout@v2
       - name: Publish project
-        run: dotnet publish -o out accessible-codenames
+        run: dotnet publish -o out -c Release accessible-codenames
       - name: Zip up deployment
         working-directory: out
         run: zip ../out.zip *
