@@ -36,6 +36,8 @@ jobs:
       AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
       
     steps:
+      - name: Look Around
+        run: ls
       - uses: actions/checkout@v2
       - name: Publish project
         run: dotnet publish -o out -c Release accessible-codenames
