@@ -23,3 +23,25 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+  
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event == 'push'
+    env:
+      AWS_REGION: eu-west-2
+      APP_NAME: codenames
+      ENVIRONMENT_NAME: codenames-live
+      ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      
+    steps:
+      - name: Publish project
+        run: dotnet publish -o out accessible-codenames
+      - name: Zip up deployment
+        working-directory: out
+        run: zip ../out.zip *
+      - name: Echo output
+        run: |
+          ls
+          ls out
