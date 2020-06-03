@@ -43,8 +43,8 @@ jobs:
         run: dotnet publish -o out -c Release accessible-codenames
       - name: Zip up deployment
         working-directory: out
-        run: zip ../out.zip *
+        run: zip ../out.zip * accessible-codenames/aws-windows-deployment-manifest.json
       - name: Echo output
         run: |
           ls
-          ls out
+          ls out.zip
