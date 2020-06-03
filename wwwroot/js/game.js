@@ -80,6 +80,9 @@ connection.on("WordPicked", function (word) {
 
     wordCard.addEventListener("animationend", function() {
         wordCard.parentElement.classList.add("invisible");
+        if (document.activeElement == wordCard) {
+            document.querySelector('#game-board-ctr').focus();
+        }
     }, { once: true });
 
     displayCurrentScores();
