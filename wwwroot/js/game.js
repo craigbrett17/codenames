@@ -40,7 +40,7 @@ connection.on("GameStateReceived", function (game) {
             var wordCard = card.querySelector(".btn");
             wordCard.classList.add(wordState);
             wordCard.classList.add("revealed");
-            wordCard.setAttribute("aria-pressed", "true");
+            card.classList.add("invisible");
             wordCard.setAttribute("aria-label", word.text + ": " + wordState);
         }
 
@@ -78,16 +78,9 @@ connection.on("WordPicked", function (word) {
     wordCard.classList.add("revealed");
     wordCard.setAttribute("aria-label", word.text + ": " + wordState);
 
-    // small workaround to fix iOS voiceover aria-pressed shouting over the game log, which is inconvenient
-    // if it is the focused element, wait some time before aria-pressing, to give the log messages a chance to be heard
-    // by no means fool proof, but workable for now
-    if (document.activeElement === wordCard) {
-        setTimeout(function () {
-            wordCard.setAttribute("aria-pressed", "true");
-        }, 10000);
-    } else {
-        wordCard.setAttribute("aria-pressed", "true");
-    }
+    wordCard.addEventListener("animationend", function() {
+        wordCard.parentElement.classList.add("invisible");
+    }, { once: true });
 
     displayCurrentScores();
     if (wordState != "assassin") {

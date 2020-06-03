@@ -19,9 +19,26 @@
     color: white;
 }
 
+@keyframes iDisappear {
+    to {
+        transform: translate(90vw);
+    }
+}
+
 .word .revealed {
+    z-index: 10;
     font-weight: bold;
     text-decoration: line-through;
+    
+    animation-delay: 3s;
+    animation-duration: 2s;
+    animation-timing-function: ease-out;
+    animation-name: iDisappear;
+    animation-iteration-count: 1;
+}
+
+.word .revealed.assassin {
+    animation: none;
 }
 
 .spymaster-only {
