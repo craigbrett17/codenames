@@ -70,3 +70,4 @@ jobs:
         uses: tvdias/github-tagger@v0.0.2
         with:
           tag: "v${{ steps.format-time.outputs.replaced }}"
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
