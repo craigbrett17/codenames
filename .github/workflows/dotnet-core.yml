@@ -37,9 +37,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: Publish project
         run: dotnet publish -o out -c Release accessible-codenames
+      - name: Copy manifest to output
+        run: cp accessible-codenames/aws-windows-deployment-manifest.json out
       - name: Zip up deployment
         working-directory: out
-        run: zip ../out.zip * ../accessible-codenames/aws-windows-deployment-manifest.json
+        run: zip ../out.zip *
       - name: Get current time
         uses: gerred/actions/current-time@master
         id: current-time
