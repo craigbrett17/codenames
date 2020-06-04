@@ -34,8 +34,6 @@ jobs:
       ENVIRONMENT_NAME: codenames-live
       
     steps:
-      - name: Look Around
-        run: ls
       - uses: actions/checkout@v2
       - name: Publish project
         run: dotnet publish -o out -c Release accessible-codenames
@@ -54,4 +52,14 @@ jobs:
           replace-with: '$1.$2.$3.$4$5$6'
           flags: 'g'
       - name: Output version
-        run: echo "v${{ steps.format-time.outputs.replaced }}"
+        run: @echo "Deploying v${{ steps.format-time.outputs.replaced }}"
+      - name: Beanstalk Deploy
+        uses: einaregilsson/beanstalk-deploy@v10
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          region: ${{ env.AWS_REGION }}
+          application_name: ${{ env.APP_NAME }}
+          environment_name: ${{ env.ENVIRONMENT_NAME }}
+          version_label: "v${{ steps.format-time.outputs.replaced }}"
+          deployment_package: out.zip
