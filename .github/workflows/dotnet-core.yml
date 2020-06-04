@@ -32,8 +32,6 @@ jobs:
       AWS_REGION: eu-west-2
       APP_NAME: codenames
       ENVIRONMENT_NAME: codenames-live
-      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
       
     steps:
       - name: Look Around
@@ -44,7 +42,16 @@ jobs:
       - name: Zip up deployment
         working-directory: out
         run: zip ../out.zip * ../accessible-codenames/aws-windows-deployment-manifest.json
-      - name: Echo output
-        run: |
-          ls
-          ls out.zip
+      - name: Get current time
+        uses: gerred/actions/current-time@master
+        id: current-time
+      - name: Normalize Time
+        uses: frabert/replace-string-action@master
+        id: format-time
+        with:
+          pattern: '^(\d{4})-(\d{2})-(\d{2})[T\s]?(\d+)\:(\d+)\:(\d+)'
+          string: "${{ steps.current-time.outputs.time }}"
+          replace-with: '$1.$2.$3.$4$5$6'
+          flags: 'g'
+      - name: Output version
+        run: echo "v${{ steps.format-time.outputs.replaced }}"
