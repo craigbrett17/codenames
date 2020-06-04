@@ -81,7 +81,10 @@ connection.on("WordPicked", function (word) {
     wordCard.addEventListener("animationend", function() {
         wordCard.parentElement.classList.add("invisible");
         if (document.activeElement == wordCard) {
+            addToLog("The selected word was in focus");
             document.querySelector('#game-board-ctr').focus();
+        } else {
+            addToLog("The selected word was not in focus");
         }
     }, { once: true });
 
