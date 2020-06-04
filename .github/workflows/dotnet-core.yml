@@ -49,7 +49,7 @@ jobs:
         uses: frabert/replace-string-action@master
         id: format-time
         with:
-          pattern: '^(\d{4})-(\d{2})-(\d{2})[T\s]?(\d+)\:(\d+)\:(\d+)'
+          pattern: '^(\d{4})-(\d{2})-(\d{2})[T\s]?(\d+)\:(\d+)\:(\d+).+'
           string: "${{ steps.current-time.outputs.time }}"
           replace-with: '$1.$2.$3.$4$5$6'
           flags: 'g'
