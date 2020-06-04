@@ -66,3 +66,7 @@ jobs:
           environment_name: ${{ env.ENVIRONMENT_NAME }}
           version_label: "v${{ steps.format-time.outputs.replaced }}"
           deployment_package: out.zip
+      - name: Tag deployment
+        uses: tvdias/github-tagger@v0.0.2
+        with:
+          tag: "v${{ steps.format-time.outputs.replaced }}"
