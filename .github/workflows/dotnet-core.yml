@@ -41,7 +41,7 @@ jobs:
         run: cp accessible-codenames/aws-windows-deployment-manifest.json out
       - name: Zip up deployment
         working-directory: out
-        run: zip ../out.zip *
+        run: zip -r ../out.zip *
       - name: Get current time
         uses: gerred/actions/current-time@master
         id: current-time
@@ -57,6 +57,7 @@ jobs:
         run: echo "Deploying v${{ steps.format-time.outputs.replaced }}"
       - name: Beanstalk Deploy
         uses: einaregilsson/beanstalk-deploy@v10
+        timeout-minutes: 10
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
           aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
