@@ -52,7 +52,7 @@ jobs:
           replace-with: '$1.$2.$3.$4$5$6'
           flags: 'g'
       - name: Output version
-        run: @echo "Deploying v${{ steps.format-time.outputs.replaced }}"
+        run: echo "Deploying v${{ steps.format-time.outputs.replaced }}"
       - name: Beanstalk Deploy
         uses: einaregilsson/beanstalk-deploy@v10
         with:
