@@ -69,6 +69,8 @@ namespace accessible_codenames.Services
             {
                 "normal" => "normal1.txt",
                 "adult" => "adult1.txt",
+                "adult_uk" => "adult_uk1.txt",
+                "adult_us" => "adult_us1.txt",
                 _ => throw new ArgumentException("Unrecognized word list name used"),
             };
 

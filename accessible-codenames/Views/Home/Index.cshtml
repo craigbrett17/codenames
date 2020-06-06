@@ -31,12 +31,14 @@
             <div class="card-body">
                 <h3 class="card-title">Adult Game</h3>
                 <div class="card-text">
-                    Based on Codenames: Deep Undercover, features very adult themes and various Americanisms. You have been warned.
+                    Based on Codenames: Deep Undercover, features very adult themes. You have been warned.
                 </div>
             </div>
             <div class="card-footer">
-                @Html.ActionLink("13 cards", "Create", "Game", new { id = "adult", numOfCards = 13 }, new { @class = "btn btn-primary card-link", title = "Create an adult game with 13 cards" })
-                @Html.ActionLink("25 cards", "Create", "Game", new { id = "adult", numOfCards = 25 }, new { @class = "btn btn-primary card-link", title = "Create an adult game with 25 cards" })
+                @Html.ActionLink("13 cards (UK)", "Create", "Game", new { id = "adult_uk", numOfCards = 13 }, new { @class = "btn btn-primary card-link", title = "Create an adult game with 13 cards" })
+                @Html.ActionLink("25 cards (UK)", "Create", "Game", new { id = "adult_uk", numOfCards = 25 }, new { @class = "btn btn-primary card-link", title = "Create an adult game with 25 cards" })
+                @Html.ActionLink("13 cards (US)", "Create", "Game", new { id = "adult_us", numOfCards = 13 }, new { @class = "btn btn-primary card-link", title = "Create an adult game with 13 cards" })
+                @Html.ActionLink("25 cards (US)", "Create", "Game", new { id = "adult_us", numOfCards = 25 }, new { @class = "btn btn-primary card-link", title = "Create an adult game with 25 cards" })
             </div>
         </div>
     </div>
