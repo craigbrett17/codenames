@@ -2,7 +2,7 @@
     height: 60vh;
 }
 
-.word .btn {
+.word .btn, #scores-ctr {
     font-size: 1.5rem;
 }
 
